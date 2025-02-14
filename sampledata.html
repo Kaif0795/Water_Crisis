@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Data</title>
+    <script>
+        async function loadSampleData() {
+            const response = await fetch("/get_data");
+            const data = await response.json();
+            let tableHTML = "<table border='1'><tr><th>Rainfall</th><th>Temperature</th><th>Population Growth</th><th>Water Availability</th></tr>";
+            
+            data.forEach(row => {
+                tableHTML += `<tr>
+                    <td contenteditable="true">${row.Rainfall}</td>
+                    <td contenteditable="true">${row.Temperature}</td>
+                    <td contenteditable="true">${row.Population_Growth}</td>
+                    <td contenteditable="true">${row.Water_Availability}</td>
+                </tr>`;
+            });
+
+            tableHTML += "</table>";
+            document.getElementById("data-container").innerHTML = tableHTML;
+        }
+    </script>
+</head>
+<body onload="loadSampleData()">
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="prediction.html">Prediction</a>
+        <a href="sample_data.html">Sample Data</a>
+        <a href="water_tanker.html">Water Tanker</a>
+    </nav>
+
+    <h2>Sample Data</h2>
+    <div id="data-container"></div>
+</body>
+</html>
