@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Prediction</title>
+    <script>
+        async function sendMessage() {
+            const userInput = document.getElementById("user-input").value;
+            const responseDiv = document.getElementById("response");
+
+            if (userInput.trim() === "") {
+                alert("Please enter data.");
+                return;
+            }
+
+            const response = await fetch("/predict", {
+                method: "POST",
+                body: JSON.stringify({ input: userInput }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            const data = await response.json();
+            responseDiv.innerHTML = `<p><strong>Prediction:</strong> ${data.response}</p>`;
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="prediction.html">Prediction</a>
+        <a href="sample_data.html">Sample Data</a>
+        <a href="water_tanker.html">Water Tanker</a>
+    </nav>
+
+    <h2>Water Prediction</h2>
+    <input type="text" id="user-input" placeholder="Enter data (Rainfall, Temp, Pop Growth)...">
+    <button onclick="sendMessage()">Predict</button>
+    <div id="response"></div>
+</body>
+</html>
